@@ -158,7 +158,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-       // [InverseProperty("JoueurMatch")]
-        //public virtual ICollection<t_j_notation_not> Notation { get; set; }
+       [InverseProperty("JoueurMatch")]
+        public virtual ICollection<Match> Match { get; set; }
     }
 }
