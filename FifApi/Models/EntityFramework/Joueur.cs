@@ -158,7 +158,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-       [InverseProperty("JoueurMatch")]
+       [InverseProperty("JoueurDansMatch")]
         public virtual ICollection<Match> Match { get; set; }
     }
 }
