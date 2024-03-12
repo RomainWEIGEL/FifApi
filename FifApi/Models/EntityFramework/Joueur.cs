@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
 {
-    [Table("Joueur")]
+    [Table("joueur")]
     public class Joueur
     {
         private int idJoueur;

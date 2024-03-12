@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
 {
-    [Table("Match")]
+    [Table("match")]
     public class Match
     {
         private int idMatch;

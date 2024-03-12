@@ -2,4 +2,11 @@ dotnet-ef migrations add FifaBDD --project FifApi
 
 si jamais : dotnet build
 
+dotnet ef database update 0 --project FifApi
+dotnet ef migrations remove --project FifApi
+
+dotnet-ef migrations remove –-project FifApi
+
+dotnet-ef database update --project FifApi
+
 dotnet-ef migrations script --project FifApi

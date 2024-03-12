@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
 {
-    [Table("JoueurMatch")]
+    [Table("joueurMatch")]
     public class JoueurMatch
     {
         private int joueurId;

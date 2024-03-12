@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FifApi.Migrations
 {
     [DbContext(typeof(FootDBContext))]
-    [Migration("20240312135715_FifaBDD")]
+    [Migration("20240312150455_FifaBDD")]
     partial class FifaBDD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,12 +26,9 @@ namespace FifApi.Migrations
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Joueur", b =>
                 {
-                    b.Property<int>("IdJoueur")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("PosteId")
                         .HasColumnType("int")
-                        .HasColumnName("idJoueur");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdJoueur"));
+                        .HasColumnName("posteId");
 
                     b.Property<DateTime>("DateDecesJoueur")
                         .HasColumnType("Date")
@@ -54,14 +51,14 @@ namespace FifApi.Migrations
                         .HasColumnType("Date")
                         .HasColumnName("finCarriereJoueur");
 
+                    b.Property<int>("IdJoueur")
+                        .HasColumnType("int")
+                        .HasColumnName("idJoueur");
+
                     b.Property<string>("NomJoueur")
                         .IsRequired()
                         .HasColumnType("Varchar(150)")
                         .HasColumnName("nomJoueur");
-
-                    b.Property<int>("PosteId")
-                        .HasColumnType("int")
-                        .HasColumnName("posteId");
 
                     b.Property<string>("PrenomJoueur")
                         .IsRequired()
@@ -73,9 +70,10 @@ namespace FifApi.Migrations
                         .HasColumnType("Char(1)")
                         .HasColumnName("sexeJoueur");
 
-                    b.HasKey("IdJoueur");
+                    b.HasKey("PosteId")
+                        .HasName("pk_joueur");
 
-                    b.ToTable("Joueur");
+                    b.ToTable("joueur");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.JoueurMatch", b =>
@@ -93,11 +91,30 @@ namespace FifApi.Migrations
                         .HasColumnName("nbButs");
 
                     b.HasKey("MatchId", "JoueurId")
-                        .HasName("pk_avis");
+                        .HasName("pk_joueurMatch");
 
                     b.HasIndex("JoueurId");
 
-                    b.ToTable("JoueurMatch");
+                    b.ToTable("joueurMatch");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Marque", b =>
+                {
+                    b.Property<int>("IdMarque")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idMarque");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdMarque"));
+
+                    b.Property<string>("NomMarque")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("nomMarque");
+
+                    b.HasKey("IdMarque");
+
+                    b.ToTable("marque");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Match", b =>
@@ -115,7 +132,7 @@ namespace FifApi.Migrations
 
                     b.Property<string>("NomMatch")
                         .IsRequired()
-                        .HasColumnType("Vachar(50)")
+                        .HasColumnType("Varchar(50)")
                         .HasColumnName("nomMatch");
 
                     b.Property<int>("ScoreEquipeDomicile")
@@ -128,7 +145,72 @@ namespace FifApi.Migrations
 
                     b.HasKey("IdMatch");
 
-                    b.ToTable("Match");
+                    b.ToTable("match");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Poste", b =>
+                {
+                    b.Property<int>("Idposte")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idposte");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Idposte"));
+
+                    b.Property<string>("DescriptionPoste")
+                        .IsRequired()
+                        .HasColumnType("Varchar(300)")
+                        .HasColumnName("descriptionPoste");
+
+                    b.Property<string>("NomPoste")
+                        .IsRequired()
+                        .HasColumnType("Varchar(150)")
+                        .HasColumnName("nomPoste");
+
+                    b.HasKey("Idposte");
+
+                    b.ToTable("poste");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Produit", b =>
+                {
+                    b.Property<int>("MarqueId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CaracteristiquesProduit")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("caracteristiquesproduit");
+
+                    b.Property<string>("DescriptionProduit")
+                        .IsRequired()
+                        .HasColumnType("varchar(1000)")
+                        .HasColumnName("descriptionproduit");
+
+                    b.Property<int>("IdProduit")
+                        .HasColumnType("int")
+                        .HasColumnName("idproduit");
+
+                    b.Property<string>("NomProduit")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("nomproduit");
+
+                    b.HasKey("MarqueId")
+                        .HasName("pk_produit");
+
+                    b.ToTable("produit");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Joueur", b =>
+                {
+                    b.HasOne("FifApi.Models.EntityFramework.Poste", "PostePourJoueur")
+                        .WithMany("JoueurPoste")
+                        .HasForeignKey("PosteId")
+                        .IsRequired()
+                        .HasConstraintName("fk_joueur_poste");
+
+                    b.Navigation("PostePourJoueur");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.JoueurMatch", b =>
@@ -137,17 +219,28 @@ namespace FifApi.Migrations
                         .WithMany("JouabiliteMatch")
                         .HasForeignKey("JoueurId")
                         .IsRequired()
-                        .HasConstraintName("fk_notation_utilisateur");
+                        .HasConstraintName("fk_joueurMatch_joueur");
 
                     b.HasOne("FifApi.Models.EntityFramework.Match", "MatchPourJoueur")
                         .WithMany("JouabiliteMatch")
                         .HasForeignKey("MatchId")
                         .IsRequired()
-                        .HasConstraintName("fk_notation_film");
+                        .HasConstraintName("fk_joueurMatch_match");
 
                     b.Navigation("JoueurDansMatch");
 
                     b.Navigation("MatchPourJoueur");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Produit", b =>
+                {
+                    b.HasOne("FifApi.Models.EntityFramework.Marque", "MarqueduProduit")
+                        .WithMany("ProduitMarque")
+                        .HasForeignKey("MarqueId")
+                        .IsRequired()
+                        .HasConstraintName("fk_produit_marque");
+
+                    b.Navigation("MarqueduProduit");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Joueur", b =>
@@ -155,9 +248,19 @@ namespace FifApi.Migrations
                     b.Navigation("JouabiliteMatch");
                 });
 
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Marque", b =>
+                {
+                    b.Navigation("ProduitMarque");
+                });
+
             modelBuilder.Entity("FifApi.Models.EntityFramework.Match", b =>
                 {
                     b.Navigation("JouabiliteMatch");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Poste", b =>
+                {
+                    b.Navigation("JoueurPoste");
                 });
 #pragma warning restore 612, 618
         }

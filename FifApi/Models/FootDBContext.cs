@@ -15,7 +15,8 @@ namespace FifApi.Models.EntityFramework
         public virtual DbSet<Joueur> Joueur { get; set; } = null!;
         public virtual DbSet<Match> Match { get; set; } = null!;
         public virtual DbSet<Poste> Poste { get; set; } = null!;
-
+        public virtual DbSet<Produit> Produit { get; set; } = null!;
+        public virtual DbSet<Marque> Marque { get; set; } = null!;
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -57,6 +58,19 @@ namespace FifApi.Models.EntityFramework
                     .HasForeignKey(d => d.PosteId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_joueur_poste");
+            });
+            OnModelCreatingPartial(modelBuilder);
+
+            modelBuilder.Entity<Produit>(entity =>
+            {
+                entity.HasKey(e => new { e.MarqueId })
+                   .HasName("pk_produit");
+
+                entity.HasOne(d => d.MarqueduProduit)
+                    .WithMany(p => p.ProduitMarque)
+                    .HasForeignKey(d => d.MarqueId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_produit_marque");
             });
             OnModelCreatingPartial(modelBuilder);
         }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
 {
-    [Table("Produit")]
+    [Table("produit")]
     public class Produit
     {
         [Required]
@@ -11,13 +11,14 @@ namespace FifApi.Models.EntityFramework
         private string nomProduit;
         private string descriptionProduit;
         private string caracteristiquesProduit;
+        private int marqueId;
 
-        public Produit(int id, string nomProduit, string descriptionProduit, string caracteristiques)
+        public Produit(int idProduit, string nomProduit, string descriptionProduit, string caracteristiquesProduit)
         {
-            this.IdProduit = id;
+            this.IdProduit = idProduit;
             this.NomProduit = nomProduit;
             this.DescriptionProduit = descriptionProduit;
-            this.CaracteristiquesProduit = caracteristiques;
+            this.CaracteristiquesProduit = caracteristiquesProduit;
         }
 
         [Key]
@@ -50,7 +51,23 @@ namespace FifApi.Models.EntityFramework
         }
 
 
+      
 
+        public int MarqueId
+        {
+            get
+            {
+                return this.marqueId;
+            }
 
+            set
+            {
+                this.marqueId = value;
+            }
+        }
+
+        [ForeignKey("MarqueId")]
+        [InverseProperty("ProduitMarque")]
+        public virtual Marque MarqueduProduit { get; set; } = null!;
     }
 }

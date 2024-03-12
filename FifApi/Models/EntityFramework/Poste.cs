@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
 {
-    [Table("Poste")]
+    [Table("poste")]
     public class Poste
     {
         private int idposte;
@@ -32,7 +32,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("nomPoste", TypeName = "Vachar(150)")]
+        [Column("nomPoste", TypeName = "Varchar(150)")]
         public string NomPoste
         {
             get
@@ -46,7 +46,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("descriptionPoste", TypeName = "Vachar(300)")]
+        [Column("descriptionPoste", TypeName = "Varchar(300)")]
         public string DescriptionPoste
         {
             get
