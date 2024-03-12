@@ -6,15 +6,17 @@ namespace FifApi.Models.EntityFramework
     public class Stock
     {
         private string tailleId;
-        private int couleurProduitId;
+        private int couleurProduitCId;
+        private int couleurProduitPId;
         private int quantite;
 
-        public Stock(string tailleId, int couleurProduitId)
+        public Stock(string tailleId, int couleurProduitCId, int couleurProduitPId, int quantite)
         {
-            this.TailleId = tailleId;
-            this.CouleurProduitId = couleurProduitId;
+            this.tailleId = tailleId;
+            this.couleurProduitCId = couleurProduitCId;
+            this.couleurProduitPId = couleurProduitPId;
+            this.quantite = quantite;
         }
-
 
         public string TailleId
         {
@@ -26,19 +28,6 @@ namespace FifApi.Models.EntityFramework
             set
             {
                 tailleId = value;
-            }
-        }
-
-        public int CouleurProduitId
-        {
-            get
-            {
-                return this.couleurProduitId;
-            }
-
-            set
-            {
-                this.couleurProduitId = value;
             }
         }
 
@@ -55,6 +44,32 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
+        public int CouleurProduitCId
+        {
+            get
+            {
+                return couleurProduitCId;
+            }
+
+            set
+            {
+                couleurProduitCId = value;
+            }
+        }
+
+        public int CouleurProduitPId
+        {
+            get
+            {
+                return this.couleurProduitPId;
+            }
+
+            set
+            {
+                this.couleurProduitPId = value;
+            }
+        }
+
         [ForeignKey("TailleId")]
         [InverseProperty("StockDuProduit")]
         public virtual Taille TailleDuProduit { get; set; } = null!;
@@ -62,6 +77,6 @@ namespace FifApi.Models.EntityFramework
         [InverseProperty("StockDuProduit")]
         public virtual CouleurProduit ProduitEnTaille { get; set; } = null!;
 
-        
+       
     }
 }
