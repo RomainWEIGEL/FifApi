@@ -69,5 +69,8 @@ namespace FifApi.Models.EntityFramework
         [ForeignKey("MarqueId")]
         [InverseProperty("ProduitMarque")]
         public virtual Marque MarqueduProduit { get; set; } = null!;
+
+        [InverseProperty("ProduitAvecCouleur")]
+        public virtual ICollection<CouleurProduit> ColoriationDuProduit { get; set; }
     }
 }

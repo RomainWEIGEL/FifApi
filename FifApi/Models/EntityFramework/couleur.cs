@@ -30,5 +30,8 @@ namespace FifApi.Models.EntityFramework
             set { nomCouleur = value; }
         }
 
+        [InverseProperty("CouleurDuProduit")]
+        public virtual ICollection<CouleurProduit> ColoriationDuProduit { get; set; }
+
     }
 }

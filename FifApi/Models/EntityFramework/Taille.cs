@@ -59,5 +59,8 @@ namespace FifApi.Models.EntityFramework
                 this.descriptionTaille = value;
             }
         }
+
+        [InverseProperty("TailleDuProduit")]
+        public virtual ICollection<Stock> StockDuProduit { get; set; }
     }
 }
