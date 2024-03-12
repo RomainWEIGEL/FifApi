@@ -12,8 +12,9 @@ namespace FifApi.Models.EntityFramework
         }
 
         public virtual DbSet<JoueurMatch> JouabiliteMatch { get; set; } = null!;
-        public virtual DbSet<Joueur> Joueurs { get; set; } = null!;
-        public virtual DbSet<Match> Matchs { get; set; } = null!;
+        public virtual DbSet<Joueur> Joueur { get; set; } = null!;
+        public virtual DbSet<Match> Match { get; set; } = null!;
+        public virtual DbSet<Poste> Poste { get; set; } = null!;
 
 
 
@@ -31,19 +32,31 @@ namespace FifApi.Models.EntityFramework
             modelBuilder.Entity<JoueurMatch>(entity =>
             {
                 entity.HasKey(e => new { e.MatchId, e.JoueurId })
-                    .HasName("pk_avis");
+                    .HasName("pk_joueurMatch");
 
                 entity.HasOne(d => d.MatchPourJoueur)
                     .WithMany(p => p.JouabiliteMatch)
                     .HasForeignKey(d => d.MatchId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_notation_film");
+                    .HasConstraintName("fk_joueurMatch_match");
 
                 entity.HasOne(d => d.JoueurDansMatch)
                     .WithMany(p => p.JouabiliteMatch)
                     .HasForeignKey(d => d.JoueurId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_notation_utilisateur");
+                    .HasConstraintName("fk_joueurMatch_joueur");
+            });
+
+            modelBuilder.Entity<Joueur>(entity =>
+            {
+                entity.HasKey(e => new { e.PosteId })
+                   .HasName("pk_joueur");
+
+                entity.HasOne(d => d.PostePourJoueur)
+                    .WithMany(p => p.JoueurPoste)
+                    .HasForeignKey(d => d.PosteId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_joueur_poste");
             });
             OnModelCreatingPartial(modelBuilder);
         }

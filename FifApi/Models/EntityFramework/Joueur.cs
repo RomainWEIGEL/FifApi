@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
@@ -17,7 +18,21 @@ namespace FifApi.Models.EntityFramework
         private string descriptionJoueur;
         private int posteId;
 
-   
+       
+
+        public Joueur(int idJoueur, string nomJoueur, string prenomJoueur, string sexeJoueur, DateTime dateNaissanceJoueur, DateTime dateDecesJoueur, DateTime debutCarriereJoueur, DateTime finCarriereJoueur, string descriptionJoueur, int posteId)
+        {
+            this.idJoueur = idJoueur;
+            this.nomJoueur = nomJoueur;
+            this.prenomJoueur = prenomJoueur;
+            this.sexeJoueur = sexeJoueur;
+            this.dateNaissanceJoueur = dateNaissanceJoueur;
+            this.dateDecesJoueur = dateDecesJoueur;
+            this.debutCarriereJoueur = debutCarriereJoueur;
+            this.finCarriereJoueur = finCarriereJoueur;
+            this.descriptionJoueur = descriptionJoueur;
+            this.PosteId = posteId;
+        }
 
         [Key]
         [Column("idJoueur", TypeName = "int")]
@@ -169,6 +184,6 @@ namespace FifApi.Models.EntityFramework
         [InverseProperty("JoueurPoste")]
         public virtual Poste PostePourJoueur { get; set; } = null!;
 
-       
+
     }
 }

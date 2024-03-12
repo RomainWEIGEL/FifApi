@@ -7,18 +7,18 @@ namespace FifApi.Models.EntityFramework
     public class Match
     {
         private int idMatch;
-        private string scoreEquipeDomicile;
-        private string scoreEquipeExterieure;
+        private int scoreEquipeDomicile;
+        private int scoreEquipeExterieure;
         private string nomMatch;
         private DateTime dateMatch;
 
-        public Match(int idMatch, string scoreEquipeDomicile, string scoreEquipeExterieure, string nomMatch, DateTime dateMatch)
+        public Match(int idMatch, int scoreEquipeDomicile, int scoreEquipeExterieure, string nomMatch, DateTime dateMatch)
         {
-            this.idMatch = idMatch;
-            this.scoreEquipeDomicile = scoreEquipeDomicile;
-            this.scoreEquipeExterieure = scoreEquipeExterieure;
-            this.nomMatch = nomMatch;
-            this.dateMatch = dateMatch;
+            this.IdMatch = idMatch;
+            this.ScoreEquipeDomicile = scoreEquipeDomicile;
+            this.ScoreEquipeExterieure = scoreEquipeExterieure;
+            this.NomMatch = nomMatch;
+            this.DateMatch = dateMatch;
         }
 
         [Key]
@@ -37,7 +37,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Column("scoreEquipeDomicile", TypeName = "int")]
-        public string ScoreEquipeDomicile
+        public int ScoreEquipeDomicile
         {
             get
             {
@@ -51,7 +51,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Column("scoreEquipeExterieure", TypeName = "int")]
-        public string ScoreEquipeExterieure
+        public int ScoreEquipeExterieure
         {
             get
             {
@@ -64,7 +64,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("nomMatch", TypeName = "Vachar(50)")]
+        [Column("nomMatch", TypeName = "Varchar(50)")]
         public string NomMatch
         {
             get

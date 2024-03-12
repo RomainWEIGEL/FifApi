@@ -61,6 +61,6 @@ namespace FifApi.Models.EntityFramework
         }
 
         [InverseProperty("PostePourJoueur")]
-        public virtual ICollection<JoueurMatch> JoueurPoste { get; set; }
+        public virtual ICollection<Joueur> JoueurPoste { get; set; }
     }
 }
