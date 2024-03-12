@@ -1,11 +1,17 @@
 using FifApi.Models;
+using FifApi.Models.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<FootDBContext>(options =>
+    options.UseNpgsql("Server=localhost;port=5432;Database=FifaBDD; uid =postgres; password =postgres; ")); // Remplacez "votre_chaine_de_connexion" par la véritable chaîne de connexion à votre base de données PostgreSQL
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

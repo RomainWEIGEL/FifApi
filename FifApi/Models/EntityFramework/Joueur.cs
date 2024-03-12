@@ -163,7 +163,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [InverseProperty("JoueurDansMatch")]
-        public virtual ICollection<Match> JouabiliteMatch { get; set; }
+        public virtual ICollection<JoueurMatch> JouabiliteMatch { get; set; }
 
         [ForeignKey("PosteId")]
         [InverseProperty("JoueurPoste")]
