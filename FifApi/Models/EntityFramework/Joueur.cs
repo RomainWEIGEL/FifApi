@@ -15,22 +15,12 @@ namespace FifApi.Models.EntityFramework
         private DateTime debutCarriereJoueur;
         private DateTime finCarriereJoueur;
         private string descriptionJoueur;
+        private int posteId;
 
-        public Joueur(int idJoueur, string nomJoueur, string prenomJoueur, string sexeJoueur, DateTime dateNaissanceJoueur, DateTime dateDecesJoueur, DateTime debutCarriereJoueur, DateTime finCarriereJoueur, string descriptionJoueur)
-        {
-            this.idJoueur = idJoueur;
-            this.nomJoueur = nomJoueur;
-            this.prenomJoueur = prenomJoueur;
-            this.sexeJoueur = sexeJoueur;
-            this.dateNaissanceJoueur = dateNaissanceJoueur;
-            this.dateDecesJoueur = dateDecesJoueur;
-            this.debutCarriereJoueur = debutCarriereJoueur;
-            this.finCarriereJoueur = finCarriereJoueur;
-            this.descriptionJoueur = descriptionJoueur;
-        }
+   
 
         [Key]
-        [Column("IdJoueur", TypeName = "int")]
+        [Column("idJoueur", TypeName = "int")]
         public int IdJoueur
         {
             get
@@ -44,7 +34,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("NomJoueur", TypeName = "Varchar(150)")]
+        [Column("nomJoueur", TypeName = "Varchar(150)")]
         public string NomJoueur
         {
             get
@@ -58,7 +48,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("NomJoueur", TypeName = "Varchar(150)")]
+        [Column("prenomJoueur", TypeName = "Varchar(150)")]
         public string PrenomJoueur
         {
             get
@@ -73,7 +63,7 @@ namespace FifApi.Models.EntityFramework
         }
 
 
-        [Column("SexeJoueur", TypeName = "Char(1)")]
+        [Column("sexeJoueur", TypeName = "Char(1)")]
         public string SexeJoueur
         {
             get
@@ -87,7 +77,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("DateNaissanceJoueur", TypeName = "Date")]
+        [Column("dateNaissanceJoueur", TypeName = "Date")]
         public DateTime DateNaissanceJoueur
         {
             get
@@ -101,7 +91,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("DateDecesJoueur", TypeName = "Date")]
+        [Column("dateDecesJoueur", TypeName = "Date")]
         public DateTime DateDecesJoueur
         {
             get
@@ -115,7 +105,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("DebutCarriereJoueur", TypeName = "Date")]
+        [Column("debutCarriereJoueur", TypeName = "Date")]
         public DateTime DebutCarriereJoueur
         {
             get
@@ -129,7 +119,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("FinCarriereJoueur", TypeName = "Date")]
+        [Column("finCarriereJoueur", TypeName = "Date")]
         public DateTime FinCarriereJoueur
         {
             get
@@ -144,7 +134,7 @@ namespace FifApi.Models.EntityFramework
         }
 
 
-        [Column("FinCarriereJoueur", TypeName = "Varchar(1000)")]
+        [Column("descriptionJoueur", TypeName = "Varchar(1000)")]
         public string DescriptionJoueur
         {
             get
@@ -158,7 +148,27 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-       [InverseProperty("JoueurDansMatch")]
-        public virtual ICollection<Match> Match { get; set; }
+        [Column("posteId", TypeName = "int")]
+        public int PosteId
+        {
+            get
+            {
+                return this.posteId;
+            }
+
+            set
+            {
+                this.posteId = value;
+            }
+        }
+
+        [InverseProperty("JoueurDansMatch")]
+        public virtual ICollection<Match> JouabiliteMatch { get; set; }
+
+        [ForeignKey("PosteId")]
+        [InverseProperty("JoueurPoste")]
+        public virtual Poste PostePourJoueur { get; set; } = null!;
+
+       
     }
 }

@@ -18,7 +18,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("JoueurId", TypeName = "int")]
+        [Column("joueurId", TypeName = "int")]
         public int JoueurId
         {
             get
@@ -33,7 +33,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("MatchId", TypeName = "int")]
+        [Column("matchId", TypeName = "int")]
         public int MatchId
         {
             get
@@ -47,7 +47,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("NbButs", TypeName = "int")]
+        [Column("nbButs", TypeName = "int")]
         public int NbButs
         {
             get

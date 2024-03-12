@@ -22,7 +22,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("IdMatch", TypeName = "int")]
+        [Column("idMatch", TypeName = "int")]
         public int IdMatch
         {
             get
@@ -36,7 +36,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("ScoreEquipeDomicile", TypeName = "int")]
+        [Column("scoreEquipeDomicile", TypeName = "int")]
         public string ScoreEquipeDomicile
         {
             get
@@ -50,7 +50,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("ScoreEquipeExterieure", TypeName = "int")]
+        [Column("scoreEquipeExterieure", TypeName = "int")]
         public string ScoreEquipeExterieure
         {
             get
@@ -64,7 +64,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("NomMatch", TypeName = "Vachar(50)")]
+        [Column("nomMatch", TypeName = "Vachar(50)")]
         public string NomMatch
         {
             get
@@ -78,7 +78,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
         
-        [Column("DateMatch", TypeName = "Date")]
+        [Column("dateMatch", TypeName = "Date")]
         public DateTime DateMatch
         {
             get
