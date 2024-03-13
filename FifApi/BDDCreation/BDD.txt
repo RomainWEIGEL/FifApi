@@ -1,14 +1,14 @@
 
 commit;
 drop table if exists "__EFMigrationsHistory" cascade;
-drop table if exists "joueurMatch" cascade;
+drop table if exists joueurMatch cascade;
 drop table if exists Joueur cascade;
 drop table if exists Match cascade;
 drop table if exists Poste cascade;
 drop table if exists Produit cascade;
 drop table if exists Marque cascade;
 drop table if exists Couleur cascade;
-drop table if exists "CouleurProduit" cascade;
+drop table if exists CouleurProduit cascade;
 drop table if exists Taille cascade;
 drop table if exists Stock cascade;
 drop table if exists TypeProduit cascade;
