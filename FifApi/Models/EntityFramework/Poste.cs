@@ -32,7 +32,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("nomPoste", TypeName = "Varchar(150)")]
+        [Column("nomposte", TypeName = "Varchar(150)")]
         public string NomPoste
         {
             get
@@ -46,7 +46,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("descriptionPoste", TypeName = "Varchar(300)")]
+        [Column("descriptionposte", TypeName = "Varchar(300)")]
         public string DescriptionPoste
         {
             get

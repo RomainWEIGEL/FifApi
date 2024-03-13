@@ -16,7 +16,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("idMarque", TypeName = "int")]
+        [Column("idmarque", TypeName = "int")]
         public int IdMarque
         {
             get
@@ -30,7 +30,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("nomMarque", TypeName = "varchar(200)")]
+        [Column("nommarque", TypeName = "varchar(200)")]
         public string NomMarque
         {
             get

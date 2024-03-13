@@ -21,6 +21,7 @@ namespace FifApi.Models.EntityFramework
         public virtual DbSet<CouleurProduit> CouleurProduit { get; set; } = null!;
         public virtual DbSet<Taille> Taille { get; set; } = null!;
         public virtual DbSet<Stock> Stock { get; set; } = null!;
+        public virtual DbSet<TypeProduit> TypeProduit { get; set; } = null!;
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -54,7 +55,7 @@ namespace FifApi.Models.EntityFramework
 
             modelBuilder.Entity<Joueur>(entity =>
             {
-                entity.HasKey(e => new { e.PosteId })
+                entity.HasKey(e => new { e.IdJoueur })
                    .HasName("pk_joueur");
 
                 entity.HasOne(d => d.PostePourJoueur)
@@ -63,11 +64,10 @@ namespace FifApi.Models.EntityFramework
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_joueur_poste");
             });
-            OnModelCreatingPartial(modelBuilder);
 
             modelBuilder.Entity<Produit>(entity =>
             {
-                entity.HasKey(e => new { e.MarqueId })
+                entity.HasKey(e => new { e.IdProduit })
                    .HasName("pk_produit");
 
                 entity.HasOne(d => d.MarqueduProduit)
@@ -75,6 +75,12 @@ namespace FifApi.Models.EntityFramework
                     .HasForeignKey(d => d.MarqueId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_produit_marque");
+
+                entity.HasOne(d => d.TypePourLeProduit)
+                   .WithMany(p => p.ProduitType)
+                   .HasForeignKey(d => d.TypeId)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("fk_produit_Type");
             });
 
             modelBuilder.Entity<CouleurProduit>(entity =>
@@ -113,6 +119,18 @@ namespace FifApi.Models.EntityFramework
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_stock_couleur");
 
+            });
+
+            modelBuilder.Entity<TypeProduit>(entity =>
+            {
+                entity.HasKey(e => new { e.IdType })
+                   .HasName("pk_joueur");
+
+                entity.HasOne(d => d.TypeEnSousType)
+                    .WithMany(p => p.TypeDuProduit)
+                    .HasForeignKey(d => d.SousTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_joueur_poste");
             });
 
 

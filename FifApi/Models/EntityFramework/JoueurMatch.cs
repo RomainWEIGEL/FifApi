@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
 {
-    [Table("joueurMatch")]
+    [Table("joueurmatch")]
     public class JoueurMatch
     {
         private int joueurId;
@@ -18,7 +18,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("joueurId", TypeName = "int")]
+        [Column("joueurid", TypeName = "int")]
         public int JoueurId
         {
             get
@@ -33,7 +33,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("matchId", TypeName = "int")]
+        [Column("matchid", TypeName = "int")]
         public int MatchId
         {
             get
@@ -47,7 +47,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("nbButs", TypeName = "int")]
+        [Column("nbbuts", TypeName = "int")]
         public int NbButs
         {
             get

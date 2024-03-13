@@ -46,7 +46,7 @@ namespace FifApi.Migrations
                     b.Property<int>("IdCouleurProduit")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("idCouleurProduit");
+                        .HasColumnName("idcouleurproduit");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdCouleurProduit"));
 
@@ -57,7 +57,7 @@ namespace FifApi.Migrations
 
                     b.Property<int>("CouleurId")
                         .HasColumnType("int")
-                        .HasColumnName("couleurId");
+                        .HasColumnName("couleurid");
 
                     b.Property<int>("MatchId")
                         .HasColumnType("integer");
@@ -68,7 +68,7 @@ namespace FifApi.Migrations
 
                     b.Property<int>("ProduitId")
                         .HasColumnType("int")
-                        .HasColumnName("produitId");
+                        .HasColumnName("produitid");
 
                     b.HasKey("IdCouleurProduit")
                         .HasName("pk_couleurProduit");
@@ -77,57 +77,62 @@ namespace FifApi.Migrations
 
                     b.HasIndex("ProduitId");
 
-                    b.ToTable("CouleurProduit");
+                    b.ToTable("couleurproduit");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Joueur", b =>
                 {
-                    b.Property<int>("PosteId")
+                    b.Property<int>("IdJoueur")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("posteId");
+                        .HasColumnName("idjoueur");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdJoueur"));
 
                     b.Property<DateTime>("DateDecesJoueur")
                         .HasColumnType("Date")
-                        .HasColumnName("dateDecesJoueur");
+                        .HasColumnName("datedecesjoueur");
 
                     b.Property<DateTime>("DateNaissanceJoueur")
                         .HasColumnType("Date")
-                        .HasColumnName("dateNaissanceJoueur");
+                        .HasColumnName("datenaissancejoueur");
 
                     b.Property<DateTime>("DebutCarriereJoueur")
                         .HasColumnType("Date")
-                        .HasColumnName("debutCarriereJoueur");
+                        .HasColumnName("debutcarrierejoueur");
 
                     b.Property<string>("DescriptionJoueur")
                         .IsRequired()
                         .HasColumnType("Varchar(1000)")
-                        .HasColumnName("descriptionJoueur");
+                        .HasColumnName("descriptionjoueur");
 
                     b.Property<DateTime>("FinCarriereJoueur")
                         .HasColumnType("Date")
-                        .HasColumnName("finCarriereJoueur");
-
-                    b.Property<int>("IdJoueur")
-                        .HasColumnType("int")
-                        .HasColumnName("idJoueur");
+                        .HasColumnName("fincarrierejoueur");
 
                     b.Property<string>("NomJoueur")
                         .IsRequired()
                         .HasColumnType("Varchar(150)")
-                        .HasColumnName("nomJoueur");
+                        .HasColumnName("nomjoueur");
+
+                    b.Property<int>("PosteId")
+                        .HasColumnType("int")
+                        .HasColumnName("posteid");
 
                     b.Property<string>("PrenomJoueur")
                         .IsRequired()
                         .HasColumnType("Varchar(150)")
-                        .HasColumnName("prenomJoueur");
+                        .HasColumnName("prenomjoueur");
 
                     b.Property<string>("SexeJoueur")
                         .IsRequired()
                         .HasColumnType("Char(1)")
-                        .HasColumnName("sexeJoueur");
+                        .HasColumnName("sexejoueur");
 
-                    b.HasKey("PosteId")
+                    b.HasKey("IdJoueur")
                         .HasName("pk_joueur");
+
+                    b.HasIndex("PosteId");
 
                     b.ToTable("joueur");
                 });
@@ -136,22 +141,22 @@ namespace FifApi.Migrations
                 {
                     b.Property<int>("MatchId")
                         .HasColumnType("int")
-                        .HasColumnName("matchId");
+                        .HasColumnName("matchid");
 
                     b.Property<int>("JoueurId")
                         .HasColumnType("int")
-                        .HasColumnName("joueurId");
+                        .HasColumnName("joueurid");
 
                     b.Property<int>("NbButs")
                         .HasColumnType("int")
-                        .HasColumnName("nbButs");
+                        .HasColumnName("nbbuts");
 
                     b.HasKey("MatchId", "JoueurId")
                         .HasName("pk_joueurMatch");
 
                     b.HasIndex("JoueurId");
 
-                    b.ToTable("joueurMatch");
+                    b.ToTable("joueurmatch");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Marque", b =>
@@ -159,14 +164,14 @@ namespace FifApi.Migrations
                     b.Property<int>("IdMarque")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("idMarque");
+                        .HasColumnName("idmarque");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdMarque"));
 
                     b.Property<string>("NomMarque")
                         .IsRequired()
                         .HasColumnType("varchar(200)")
-                        .HasColumnName("nomMarque");
+                        .HasColumnName("nommarque");
 
                     b.HasKey("IdMarque");
 
@@ -178,26 +183,26 @@ namespace FifApi.Migrations
                     b.Property<int>("IdMatch")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("idMatch");
+                        .HasColumnName("idmatch");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdMatch"));
 
                     b.Property<DateTime>("DateMatch")
                         .HasColumnType("Date")
-                        .HasColumnName("dateMatch");
+                        .HasColumnName("datematch");
 
                     b.Property<string>("NomMatch")
                         .IsRequired()
                         .HasColumnType("Varchar(50)")
-                        .HasColumnName("nomMatch");
+                        .HasColumnName("nommatch");
 
                     b.Property<int>("ScoreEquipeDomicile")
                         .HasColumnType("int")
-                        .HasColumnName("scoreEquipeDomicile");
+                        .HasColumnName("scoreequipedomicile");
 
                     b.Property<int>("ScoreEquipeExterieure")
                         .HasColumnType("int")
-                        .HasColumnName("scoreEquipeExterieure");
+                        .HasColumnName("scoreequipeexterieure");
 
                     b.HasKey("IdMatch");
 
@@ -216,12 +221,12 @@ namespace FifApi.Migrations
                     b.Property<string>("DescriptionPoste")
                         .IsRequired()
                         .HasColumnType("Varchar(300)")
-                        .HasColumnName("descriptionPoste");
+                        .HasColumnName("descriptionposte");
 
                     b.Property<string>("NomPoste")
                         .IsRequired()
                         .HasColumnType("Varchar(150)")
-                        .HasColumnName("nomPoste");
+                        .HasColumnName("nomposte");
 
                     b.HasKey("Idposte");
 
@@ -230,8 +235,12 @@ namespace FifApi.Migrations
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Produit", b =>
                 {
-                    b.Property<int>("MarqueId")
-                        .HasColumnType("int");
+                    b.Property<int>("IdProduit")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idproduit");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdProduit"));
 
                     b.Property<string>("CaracteristiquesProduit")
                         .IsRequired()
@@ -243,17 +252,25 @@ namespace FifApi.Migrations
                         .HasColumnType("varchar(1000)")
                         .HasColumnName("descriptionproduit");
 
-                    b.Property<int>("IdProduit")
+                    b.Property<int>("MarqueId")
                         .HasColumnType("int")
-                        .HasColumnName("idproduit");
+                        .HasColumnName("marqueid");
 
                     b.Property<string>("NomProduit")
                         .IsRequired()
                         .HasColumnType("varchar(150)")
                         .HasColumnName("nomproduit");
 
-                    b.HasKey("MarqueId")
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int")
+                        .HasColumnName("typeid");
+
+                    b.HasKey("IdProduit")
                         .HasName("pk_produit");
+
+                    b.HasIndex("MarqueId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("produit");
                 });
@@ -262,11 +279,11 @@ namespace FifApi.Migrations
                 {
                     b.Property<string>("TailleId")
                         .HasColumnType("char(6)")
-                        .HasColumnName("tailleId");
+                        .HasColumnName("tailleid");
 
                     b.Property<int>("CouleurProduitId")
                         .HasColumnType("int")
-                        .HasColumnName("couleurProduitId");
+                        .HasColumnName("couleurproduitid");
 
                     b.Property<int>("Quantite")
                         .HasColumnType("int")
@@ -284,21 +301,52 @@ namespace FifApi.Migrations
                 {
                     b.Property<string>("IdTaille")
                         .HasColumnType("char(6)")
-                        .HasColumnName("idTaille");
+                        .HasColumnName("idtaille");
 
                     b.Property<string>("DescriptionTaille")
                         .IsRequired()
                         .HasColumnType("Varchar(100)")
-                        .HasColumnName("descriptionTaille");
+                        .HasColumnName("descriptiontaille");
 
                     b.Property<string>("NomTaille")
                         .IsRequired()
                         .HasColumnType("Varchar(50)")
-                        .HasColumnName("nomTaille");
+                        .HasColumnName("nomtaille");
 
                     b.HasKey("IdTaille");
 
                     b.ToTable("taille");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.TypeProduit", b =>
+                {
+                    b.Property<int>("IdType")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idtype");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdType"));
+
+                    b.Property<string>("DescriptionType")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("descriptiontype");
+
+                    b.Property<string>("NomType")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("nomtype");
+
+                    b.Property<int>("SousTypeId")
+                        .HasColumnType("int")
+                        .HasColumnName("soustypeid");
+
+                    b.HasKey("IdType")
+                        .HasName("pk_joueur");
+
+                    b.HasIndex("SousTypeId");
+
+                    b.ToTable("typeproduit");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.CouleurProduit", b =>
@@ -358,7 +406,15 @@ namespace FifApi.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_produit_marque");
 
+                    b.HasOne("FifApi.Models.EntityFramework.TypeProduit", "TypePourLeProduit")
+                        .WithMany("ProduitType")
+                        .HasForeignKey("TypeId")
+                        .IsRequired()
+                        .HasConstraintName("fk_produit_Type");
+
                     b.Navigation("MarqueduProduit");
+
+                    b.Navigation("TypePourLeProduit");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Stock", b =>
@@ -378,6 +434,17 @@ namespace FifApi.Migrations
                     b.Navigation("ProduitEnTaille");
 
                     b.Navigation("TailleDuProduit");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.TypeProduit", b =>
+                {
+                    b.HasOne("FifApi.Models.EntityFramework.TypeProduit", "TypeEnSousType")
+                        .WithMany("TypeDuProduit")
+                        .HasForeignKey("SousTypeId")
+                        .IsRequired()
+                        .HasConstraintName("fk_joueur_poste");
+
+                    b.Navigation("TypeEnSousType");
                 });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Couleur", b =>
@@ -418,6 +485,13 @@ namespace FifApi.Migrations
             modelBuilder.Entity("FifApi.Models.EntityFramework.Taille", b =>
                 {
                     b.Navigation("StockDuProduit");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.TypeProduit", b =>
+                {
+                    b.Navigation("ProduitType");
+
+                    b.Navigation("TypeDuProduit");
                 });
 #pragma warning restore 612, 618
         }

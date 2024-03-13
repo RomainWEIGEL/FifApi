@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
 {
+    [Table("couleurproduit")]
     public class CouleurProduit
     {
         private int idCouleurProduit;
@@ -35,7 +36,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         
-        [Column("produitId", TypeName = "int")]
+        [Column("produitid", TypeName = "int")]
         public int ProduitId
         {
             get
@@ -50,7 +51,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         
-        [Column("couleurId", TypeName = "int")]
+        [Column("couleurid", TypeName = "int")]
         public int CouleurId
         {
             get
@@ -65,7 +66,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("idCouleurProduit", TypeName = "int")]
+        [Column("idcouleurproduit", TypeName = "int")]
         public int IdCouleurProduit
         {
             get

@@ -18,7 +18,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("idTaille", TypeName = "char(6)")]
+        [Column("idtaille", TypeName = "char(6)")]
         public string IdTaille
         {
             get
@@ -32,7 +32,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("nomTaille", TypeName = "Varchar(50)")]
+        [Column("nomtaille", TypeName = "Varchar(50)")]
         public string NomTaille
         {
             get
@@ -46,7 +46,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("descriptionTaille", TypeName = "Varchar(100)")]
+        [Column("descriptiontaille", TypeName = "Varchar(100)")]
         public string DescriptionTaille
         {
             get

@@ -18,7 +18,7 @@ namespace FifApi.Models.EntityFramework
         }
 
         [Key]
-        [Column("tailleId", TypeName = "char(6)")]
+        [Column("tailleid", TypeName = "char(6)")]
         public string TailleId
         {
             get
@@ -48,7 +48,7 @@ namespace FifApi.Models.EntityFramework
 
 
         [Key]
-        [Column("couleurProduitId", TypeName = "int")]
+        [Column("couleurproduitid", TypeName = "int")]
         public int CouleurProduitId
         {
             get
