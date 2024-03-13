@@ -46,7 +46,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Column("nomTaille", TypeName = "Varchar(100)")]
+        [Column("descriptionTaille", TypeName = "Varchar(100)")]
         public string DescriptionTaille
         {
             get

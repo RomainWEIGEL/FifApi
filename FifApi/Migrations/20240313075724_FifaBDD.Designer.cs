@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FifApi.Migrations
 {
     [DbContext(typeof(FootDBContext))]
-    [Migration("20240312150455_FifaBDD")]
+    [Migration("20240313075724_FifaBDD")]
     partial class FifaBDD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,64 @@ namespace FifApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Couleur", b =>
+                {
+                    b.Property<int>("IdCouleur")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idcouleur");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdCouleur"));
+
+                    b.Property<string>("NomCouleur")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("nomproduit");
+
+                    b.HasKey("IdCouleur");
+
+                    b.ToTable("couleur");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.CouleurProduit", b =>
+                {
+                    b.Property<int>("IdCouleurProduit")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idCouleurProduit");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdCouleurProduit"));
+
+                    b.Property<string>("CodeBarre")
+                        .IsRequired()
+                        .HasColumnType("varchar(48)")
+                        .HasColumnName("codebarre");
+
+                    b.Property<int>("CouleurId")
+                        .HasColumnType("int")
+                        .HasColumnName("couleurId");
+
+                    b.Property<int>("MatchId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Prix")
+                        .HasColumnType("numeric(8,2)")
+                        .HasColumnName("prix");
+
+                    b.Property<int>("ProduitId")
+                        .HasColumnType("int")
+                        .HasColumnName("produitId");
+
+                    b.HasKey("IdCouleurProduit")
+                        .HasName("pk_couleurProduit");
+
+                    b.HasIndex("CouleurId");
+
+                    b.HasIndex("ProduitId");
+
+                    b.ToTable("CouleurProduit");
+                });
 
             modelBuilder.Entity("FifApi.Models.EntityFramework.Joueur", b =>
                 {
@@ -202,6 +260,68 @@ namespace FifApi.Migrations
                     b.ToTable("produit");
                 });
 
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Stock", b =>
+                {
+                    b.Property<string>("TailleId")
+                        .HasColumnType("char(6)")
+                        .HasColumnName("tailleId");
+
+                    b.Property<int>("CouleurProduitId")
+                        .HasColumnType("int")
+                        .HasColumnName("couleurProduitId");
+
+                    b.Property<int>("Quantite")
+                        .HasColumnType("int")
+                        .HasColumnName("quantite");
+
+                    b.HasKey("TailleId", "CouleurProduitId")
+                        .HasName("pk_stock");
+
+                    b.HasIndex("CouleurProduitId");
+
+                    b.ToTable("stock");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Taille", b =>
+                {
+                    b.Property<string>("IdTaille")
+                        .HasColumnType("char(6)")
+                        .HasColumnName("idTaille");
+
+                    b.Property<string>("DescriptionTaille")
+                        .IsRequired()
+                        .HasColumnType("Varchar(100)")
+                        .HasColumnName("descriptionTaille");
+
+                    b.Property<string>("NomTaille")
+                        .IsRequired()
+                        .HasColumnType("Varchar(50)")
+                        .HasColumnName("nomTaille");
+
+                    b.HasKey("IdTaille");
+
+                    b.ToTable("taille");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.CouleurProduit", b =>
+                {
+                    b.HasOne("FifApi.Models.EntityFramework.Couleur", "CouleurDuProduit")
+                        .WithMany("ColoriationDuProduit")
+                        .HasForeignKey("CouleurId")
+                        .IsRequired()
+                        .HasConstraintName("fk_couleurProduit_couleur");
+
+                    b.HasOne("FifApi.Models.EntityFramework.Produit", "ProduitAvecCouleur")
+                        .WithMany("ColoriationDuProduit")
+                        .HasForeignKey("ProduitId")
+                        .IsRequired()
+                        .HasConstraintName("fk_couleurProduit_produit");
+
+                    b.Navigation("CouleurDuProduit");
+
+                    b.Navigation("ProduitAvecCouleur");
+                });
+
             modelBuilder.Entity("FifApi.Models.EntityFramework.Joueur", b =>
                 {
                     b.HasOne("FifApi.Models.EntityFramework.Poste", "PostePourJoueur")
@@ -243,6 +363,35 @@ namespace FifApi.Migrations
                     b.Navigation("MarqueduProduit");
                 });
 
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Stock", b =>
+                {
+                    b.HasOne("FifApi.Models.EntityFramework.CouleurProduit", "ProduitEnTaille")
+                        .WithMany("StockDuProduit")
+                        .HasForeignKey("CouleurProduitId")
+                        .IsRequired()
+                        .HasConstraintName("fk_stock_couleur");
+
+                    b.HasOne("FifApi.Models.EntityFramework.Taille", "TailleDuProduit")
+                        .WithMany("StockDuProduit")
+                        .HasForeignKey("TailleId")
+                        .IsRequired()
+                        .HasConstraintName("fk_stock_taille");
+
+                    b.Navigation("ProduitEnTaille");
+
+                    b.Navigation("TailleDuProduit");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Couleur", b =>
+                {
+                    b.Navigation("ColoriationDuProduit");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.CouleurProduit", b =>
+                {
+                    b.Navigation("StockDuProduit");
+                });
+
             modelBuilder.Entity("FifApi.Models.EntityFramework.Joueur", b =>
                 {
                     b.Navigation("JouabiliteMatch");
@@ -261,6 +410,16 @@ namespace FifApi.Migrations
             modelBuilder.Entity("FifApi.Models.EntityFramework.Poste", b =>
                 {
                     b.Navigation("JoueurPoste");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Produit", b =>
+                {
+                    b.Navigation("ColoriationDuProduit");
+                });
+
+            modelBuilder.Entity("FifApi.Models.EntityFramework.Taille", b =>
+                {
+                    b.Navigation("StockDuProduit");
                 });
 #pragma warning restore 612, 618
         }

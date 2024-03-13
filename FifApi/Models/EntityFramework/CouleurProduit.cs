@@ -5,6 +5,7 @@ namespace FifApi.Models.EntityFramework
 {
     public class CouleurProduit
     {
+        private int idCouleurProduit;
         private int produitId;
         private int couleurId;
         private double prix;
@@ -33,7 +34,7 @@ namespace FifApi.Models.EntityFramework
             set { codeBarre = value; }
         }
 
-        [Key]
+        
         [Column("produitId", TypeName = "int")]
         public int ProduitId
         {
@@ -48,7 +49,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        [Key]
+        
         [Column("couleurId", TypeName = "int")]
         public int CouleurId
         {
@@ -63,6 +64,20 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
+        [Key]
+        [Column("idCouleurProduit", TypeName = "int")]
+        public int IdCouleurProduit
+        {
+            get
+            {
+                return this.idCouleurProduit;
+            }
+            set
+            {
+                this.idCouleurProduit = value;
+            }
+        }
+
         [ForeignKey("ProduitId")]
         [InverseProperty("ColoriationDuProduit")]
         public virtual Produit ProduitAvecCouleur { get; set; } = null!;
@@ -73,5 +88,7 @@ namespace FifApi.Models.EntityFramework
 
         [InverseProperty("ProduitEnTaille")]
         public virtual ICollection<Stock> StockDuProduit { get; set; }
+
+       
     }
 }

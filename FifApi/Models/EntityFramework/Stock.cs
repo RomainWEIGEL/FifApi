@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FifApi.Models.EntityFramework
 {
@@ -6,18 +7,18 @@ namespace FifApi.Models.EntityFramework
     public class Stock
     {
         private string tailleId;
-        private int couleurProduitCId;
-        private int couleurProduitPId;
+        private int couleurProduitId;
         private int quantite;
 
-        public Stock(string tailleId, int couleurProduitCId, int couleurProduitPId, int quantite)
+        public Stock(string tailleId, int couleurProduitId, int quantite)
         {
-            this.tailleId = tailleId;
-            this.couleurProduitCId = couleurProduitCId;
-            this.couleurProduitPId = couleurProduitPId;
-            this.quantite = quantite;
+            this.TailleId = tailleId;
+            this.CouleurProduitId = couleurProduitId;
+            this.Quantite = quantite;
         }
 
+        [Key]
+        [Column("tailleId", TypeName = "char(6)")]
         public string TailleId
         {
             get
@@ -31,6 +32,7 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
+        [Column("quantite", TypeName = "int")]
         public int Quantite
         {
             get
@@ -44,29 +46,19 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
-        public int CouleurProduitCId
+
+        [Key]
+        [Column("couleurProduitId", TypeName = "int")]
+        public int CouleurProduitId
         {
             get
             {
-                return couleurProduitCId;
+                return this.couleurProduitId;
             }
 
             set
             {
-                couleurProduitCId = value;
-            }
-        }
-
-        public int CouleurProduitPId
-        {
-            get
-            {
-                return this.couleurProduitPId;
-            }
-
-            set
-            {
-                this.couleurProduitPId = value;
+                this.couleurProduitId = value;
             }
         }
 

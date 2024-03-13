@@ -11,6 +11,19 @@ namespace FifApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "couleur",
+                columns: table => new
+                {
+                    idcouleur = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    nomproduit = table.Column<string>(type: "varchar(150)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_couleur", x => x.idcouleur);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "marque",
                 columns: table => new
                 {
@@ -51,6 +64,19 @@ namespace FifApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_poste", x => x.idposte);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "taille",
+                columns: table => new
+                {
+                    idTaille = table.Column<string>(type: "char(6)", nullable: false),
+                    nomTaille = table.Column<string>(type: "Varchar(50)", nullable: false),
+                    descriptionTaille = table.Column<string>(type: "Varchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_taille", x => x.idTaille);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +125,33 @@ namespace FifApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CouleurProduit",
+                columns: table => new
+                {
+                    idCouleurProduit = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    prix = table.Column<decimal>(type: "numeric(8,2)", nullable: false),
+                    codebarre = table.Column<string>(type: "varchar(48)", nullable: false),
+                    produitId = table.Column<int>(type: "int", nullable: false),
+                    couleurId = table.Column<int>(type: "int", nullable: false),
+                    MatchId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_couleurProduit", x => x.idCouleurProduit);
+                    table.ForeignKey(
+                        name: "fk_couleurProduit_couleur",
+                        column: x => x.couleurId,
+                        principalTable: "couleur",
+                        principalColumn: "idcouleur");
+                    table.ForeignKey(
+                        name: "fk_couleurProduit_produit",
+                        column: x => x.produitId,
+                        principalTable: "produit",
+                        principalColumn: "MarqueId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "joueurMatch",
                 columns: table => new
                 {
@@ -121,10 +174,48 @@ namespace FifApi.Migrations
                         principalColumn: "idMatch");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "stock",
+                columns: table => new
+                {
+                    tailleId = table.Column<string>(type: "char(6)", nullable: false),
+                    couleurProduitId = table.Column<int>(type: "int", nullable: false),
+                    quantite = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_stock", x => new { x.tailleId, x.couleurProduitId });
+                    table.ForeignKey(
+                        name: "fk_stock_couleur",
+                        column: x => x.couleurProduitId,
+                        principalTable: "CouleurProduit",
+                        principalColumn: "idCouleurProduit");
+                    table.ForeignKey(
+                        name: "fk_stock_taille",
+                        column: x => x.tailleId,
+                        principalTable: "taille",
+                        principalColumn: "idTaille");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CouleurProduit_couleurId",
+                table: "CouleurProduit",
+                column: "couleurId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CouleurProduit_produitId",
+                table: "CouleurProduit",
+                column: "produitId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_joueurMatch_joueurId",
                 table: "joueurMatch",
                 column: "joueurId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_stock_couleurProduitId",
+                table: "stock",
+                column: "couleurProduitId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -133,7 +224,7 @@ namespace FifApi.Migrations
                 name: "joueurMatch");
 
             migrationBuilder.DropTable(
-                name: "produit");
+                name: "stock");
 
             migrationBuilder.DropTable(
                 name: "joueur");
@@ -142,10 +233,22 @@ namespace FifApi.Migrations
                 name: "match");
 
             migrationBuilder.DropTable(
-                name: "marque");
+                name: "CouleurProduit");
+
+            migrationBuilder.DropTable(
+                name: "taille");
 
             migrationBuilder.DropTable(
                 name: "poste");
+
+            migrationBuilder.DropTable(
+                name: "couleur");
+
+            migrationBuilder.DropTable(
+                name: "produit");
+
+            migrationBuilder.DropTable(
+                name: "marque");
         }
     }
 }

@@ -79,7 +79,7 @@ namespace FifApi.Models.EntityFramework
 
             modelBuilder.Entity<CouleurProduit>(entity =>
             {
-                entity.HasKey(e => new { e.CouleurId, e.ProduitId })
+                entity.HasKey(e => new { e.IdCouleurProduit })
                     .HasName("pk_couleurProduit");
 
                 entity.HasOne(d => d.CouleurDuProduit)
@@ -95,9 +95,10 @@ namespace FifApi.Models.EntityFramework
                     .HasConstraintName("fk_couleurProduit_produit");
             });
 
+
             modelBuilder.Entity<Stock>(entity =>
             {
-                entity.HasKey(e => new { e.TailleId, e.CouleurProduitCId, e.CouleurProduitPId })
+                entity.HasKey(e => new { e.TailleId, e.CouleurProduitId })
                     .HasName("pk_stock");
 
                 entity.HasOne(d => d.TailleDuProduit)
@@ -108,15 +109,10 @@ namespace FifApi.Models.EntityFramework
 
                 entity.HasOne(d => d.ProduitEnTaille)
                     .WithMany(p => p.StockDuProduit)
-                    .HasForeignKey(d => d.CouleurProduitCId)
+                    .HasForeignKey(d => d.CouleurProduitId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_stock_couleur");
 
-                entity.HasOne(d => d.ProduitEnTaille)
-                   .WithMany(p => p.StockDuProduit)
-                   .HasForeignKey(d => d.CouleurProduitPId)
-                   .OnDelete(DeleteBehavior.ClientSetNull)
-                   .HasConstraintName("fk_stock_produit");
             });
 
 
