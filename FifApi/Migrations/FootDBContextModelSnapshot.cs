@@ -342,7 +342,7 @@ namespace FifApi.Migrations
                         .HasColumnName("soustypeid");
 
                     b.HasKey("IdType")
-                        .HasName("pk_joueur");
+                        .HasName("pk_typeProduit");
 
                     b.HasIndex("SousTypeId");
 

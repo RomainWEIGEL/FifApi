@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FifApi.Migrations
 {
     [DbContext(typeof(FootDBContext))]
-    [Migration("20240313090924_FifaBDD")]
+    [Migration("20240313091624_FifaBDD")]
     partial class FifaBDD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -344,7 +344,7 @@ namespace FifApi.Migrations
                         .HasColumnName("soustypeid");
 
                     b.HasKey("IdType")
-                        .HasName("pk_joueur");
+                        .HasName("pk_typeProduit");
 
                     b.HasIndex("SousTypeId");
 

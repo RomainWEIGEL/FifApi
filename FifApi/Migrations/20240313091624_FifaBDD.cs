@@ -91,7 +91,7 @@ namespace FifApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_joueur", x => x.idtype);
+                    table.PrimaryKey("pk_typeProduit", x => x.idtype);
                     table.ForeignKey(
                         name: "fk_joueur_poste",
                         column: x => x.soustypeid,

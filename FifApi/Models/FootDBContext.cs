@@ -124,7 +124,7 @@ namespace FifApi.Models.EntityFramework
             modelBuilder.Entity<TypeProduit>(entity =>
             {
                 entity.HasKey(e => new { e.IdType })
-                   .HasName("pk_joueur");
+                   .HasName("pk_typeProduit");
 
                 entity.HasOne(d => d.TypeEnSousType)
                     .WithMany(p => p.TypeDuProduit)
