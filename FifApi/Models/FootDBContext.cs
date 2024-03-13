@@ -81,6 +81,12 @@ namespace FifApi.Models.EntityFramework
                    .HasForeignKey(d => d.TypeId)
                    .OnDelete(DeleteBehavior.ClientSetNull)
                    .HasConstraintName("fk_produit_Type");
+
+                entity.HasOne(d => d.AlbumDuProduit)
+                 .WithMany(p => p.ProduitAlbum)
+                 .HasForeignKey(d => d.AlbumId)
+                 .OnDelete(DeleteBehavior.ClientSetNull)
+                 .HasConstraintName("fk_produit_Album");
             });
 
             modelBuilder.Entity<CouleurProduit>(entity =>

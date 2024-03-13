@@ -64,10 +64,10 @@ namespace FifApi.Models.EntityFramework
 
         [ForeignKey("TailleId")]
         [InverseProperty("StockDuProduit")]
-        public virtual Taille TailleDuProduit { get; set; } = null!;
+        public virtual Taille TailleDuProduit { get; set; }
         [ForeignKey("CouleurProduitId")]
         [InverseProperty("StockDuProduit")]
-        public virtual CouleurProduit ProduitEnTaille { get; set; } = null!;
+        public virtual CouleurProduit ProduitEnTaille { get; set; }
 
        
     }

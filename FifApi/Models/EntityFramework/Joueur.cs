@@ -182,7 +182,7 @@ namespace FifApi.Models.EntityFramework
 
         [ForeignKey("PosteId")]
         [InverseProperty("JoueurPoste")]
-        public virtual Poste PostePourJoueur { get; set; } = null!;
+        public virtual Poste PostePourJoueur { get; set; }
 
 
     }

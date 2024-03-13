@@ -64,9 +64,9 @@ namespace FifApi.Models.EntityFramework
 
         [ForeignKey("JoueurId")]
         [InverseProperty("JouabiliteMatch")]
-        public virtual Joueur JoueurDansMatch { get; set; } = null!;
+        public virtual Joueur JoueurDansMatch { get; set; }
         [ForeignKey("MatchId")]
         [InverseProperty("JouabiliteMatch")]
-        public virtual Match MatchPourJoueur { get; set; } = null!;
+        public virtual Match MatchPourJoueur { get; set; }
     }
 }

@@ -81,10 +81,10 @@ namespace FifApi.Models.EntityFramework
 
         [ForeignKey("ProduitId")]
         [InverseProperty("ColoriationDuProduit")]
-        public virtual Produit ProduitAvecCouleur { get; set; } = null!;
+        public virtual Produit ProduitAvecCouleur { get; set; }
         [ForeignKey("MatchId")]
         [InverseProperty("ColoriationDuProduit")]
-        public virtual Couleur CouleurDuProduit { get; set; } = null!;
+        public virtual Couleur CouleurDuProduit { get; set; }
 
 
         [InverseProperty("ProduitEnTaille")]

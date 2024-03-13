@@ -84,6 +84,6 @@ namespace FifApi.Models.EntityFramework
 
         [ForeignKey("SousTypeId")]
         [InverseProperty("TypeDuProduit")]
-        public virtual TypeProduit TypeEnSousType { get; set; } = null!;
+        public virtual TypeProduit TypeEnSousType { get; set; }
     }
 }

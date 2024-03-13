@@ -13,6 +13,7 @@ namespace FifApi.Models.EntityFramework
         private string caracteristiquesProduit;
         private int marqueId;
         private int typeId;
+        private int albumId;
 
         public Produit(int idProduit, string nomProduit, string descriptionProduit, string caracteristiquesProduit)
         {
@@ -81,17 +82,35 @@ namespace FifApi.Models.EntityFramework
             }
         }
 
+        [Column("albumid", TypeName = "int")]
+        public int AlbumId
+        {
+            get
+            {
+                return this.albumId;
+            }
+
+            set
+            {
+                this.albumId = value;
+            }
+        }
+
         [ForeignKey("MarqueId")]
+        [InverseProperty("ProduitAlbum")]
+        public virtual Album AlbumDuProduit { get; set; }
+
+        [ForeignKey("AlbumId")]
         [InverseProperty("ProduitMarque")]
-        public virtual Marque MarqueduProduit { get; set; } = null!;
+        public virtual Marque MarqueduProduit { get; set; }
 
         [ForeignKey("TypeId")]
         [InverseProperty("ProduitType")]
-        public virtual TypeProduit TypePourLeProduit { get; set; } = null!;
+        public virtual TypeProduit TypePourLeProduit { get; set; }
 
         [InverseProperty("ProduitAvecCouleur")]
         public virtual ICollection<CouleurProduit> ColoriationDuProduit { get; set; }
 
-        
+       
     }
 }
